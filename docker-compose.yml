@@ -1,12 +1,16 @@
 version: '3.8'
 
 services:
-  api:
+  web:
     image: python:3.10
     container_name: api_roll
-    working_dir: /usr/src/app
+    working_dir: /app
     volumes:
-      - .:/usr/src/app
+      - .:/app
     ports:
       - "8000:8000"
-    command: bash -c "pip install -r requirements.txt && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    command: bash -c "
+      pip install --upgrade pip &&
+      pip install -r requirements.txt &&
+      python manage.py migrate &&
+      python manage.py runserver 0.0.0.0:8000"
